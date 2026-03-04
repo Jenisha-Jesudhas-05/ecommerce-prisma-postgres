@@ -1,10 +1,16 @@
 {
   "compilerOptions": {
-    "module": "ESNext",
-    "moduleResolution": "bundler",
-    "target": "ES2023",
-    "strict": true,
+    "target": "ESNext",
+    "module": "NodeNext",          // Required for ESM with .js extensions
+    "moduleResolution": "NodeNext",
+    "outDir": "./dist",            // Where compiled code goes
+    "rootDir": "./src",
+    "strict": true,                // Corporate standard for type safety
     "esModuleInterop": true,
-    "ignoreDeprecations": "5.0"
-  }
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "sourceMap": true              // Helps with debugging
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules"]
 }
