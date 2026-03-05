@@ -54,5 +54,12 @@ export const login = async (req: Request, res: Response) => {
     { expiresIn: "1d" }
   );
 
-  res.json({ accessToken });
+  res.json({ accessToken,
+    role: user.role,
+    user: {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+    },
+   });
 };
