@@ -28,8 +28,8 @@ export const getProducts = async (_: Request, res: Response) => {
     });
 
     res.json(products);
-  } catch (error) {
-    res.status(500).json({ message: "Error fetching products" });
+  } catch (error: any) {
+    res.status(500).json({ message: `Error fetching products ${error.message}` });
   }
 };
 
