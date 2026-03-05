@@ -21,7 +21,6 @@ model User {
   role      Role     @default(buyer)
   createdAt DateTime @default(now())
 
-  // 🔥 Relation to products (Seller)
   products Product[] @relation("UserProducts")
 
   cart   Cart?

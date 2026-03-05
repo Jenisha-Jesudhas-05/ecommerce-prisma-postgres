@@ -22,9 +22,13 @@ export const protect = (
     const decoded = jwt.verify(
       token,
       process.env.JWT_ACCESS_SECRET as string
-    );
+    ) as { userId: string; role: string };
 
-    req.user = decoded;
+    req.user = {
+      id: decoded.userId,
+      role: decoded.role,
+    };
+
     next();
   } catch (error) {
     return res.status(401).json({ message: "Invalid token" });

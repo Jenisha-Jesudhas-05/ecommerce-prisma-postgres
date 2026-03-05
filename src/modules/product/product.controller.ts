@@ -115,7 +115,7 @@ export const getFeaturedProducts = async (
     });
 
     res.json(products);
-  } catch (error) {
-    res.status(500).json({ message: "Error fetching featured products" });
+  } catch (error: any) {
+    res.status(500).json({ message: `Error fetching featured products ${error.message}` });
   }
 };
