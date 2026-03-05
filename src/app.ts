@@ -1,5 +1,4 @@
 import express from "express";
-
 import orderRoutes from "./modules/order/order.routes.js";
 import userRoutes from "./modules/user/user.routes.js";
 import authRoutes from "./modules/auth/auth.routes.js";

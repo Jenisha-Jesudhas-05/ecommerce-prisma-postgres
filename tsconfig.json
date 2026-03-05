@@ -4,7 +4,7 @@
     "module": "NodeNext",          // Required for ESM with .js extensions
     "moduleResolution": "NodeNext",
     "outDir": "./dist",            // Where compiled code goes
-    "rootDir": "./src",
+    "rootDir": "./",
     "strict": true,                // Corporate standard for type safety
     "esModuleInterop": true,
     "skipLibCheck": true,

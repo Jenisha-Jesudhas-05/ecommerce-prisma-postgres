@@ -21,7 +21,7 @@ export const register = async (req: Request, res: Response) => {
       name,
       email,
       password: hashedPassword,
-      role: role || "buyer", // 👈 important line
+      role: role || "buyer", 
     },
   });
 

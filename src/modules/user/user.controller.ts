@@ -1,9 +1,6 @@
 import type { Request, Response } from "express";
 import prisma from "../../config/prisma.js";
 
-
-
-// 🔹 Get Logged-in User Profile
 export const getProfile = async (req: any, res: Response) => {
   const user = await prisma.user.findUnique({
     where: { id: req.user.userId },
@@ -22,8 +19,6 @@ export const getProfile = async (req: any, res: Response) => {
   res.json(user);
 };
 
-
-// 🔹 Get All Users (Admin Only)
 export const getAllUsers = async (_: Request, res: Response) => {
   const users = await prisma.user.findMany({
     select: {
@@ -39,7 +34,6 @@ export const getAllUsers = async (_: Request, res: Response) => {
 };
 
 
-// 🔹 Delete User (Admin Only)
 export const deleteUser = async (req: any, res: Response) => {
   const { id } = req.params;
 
