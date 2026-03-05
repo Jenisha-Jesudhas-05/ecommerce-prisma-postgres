@@ -4,8 +4,15 @@ import userRoutes from "./modules/user/user.routes.js";
 import authRoutes from "./modules/auth/auth.routes.js";
 import productRoutes from "./modules/product/product.routes.js";
 import cartRoutes from "./modules/cart/cart.routes.js";
-
+import cors from "cors";
 const app = express();
+app.use(cors({
+  origin: [
+    "http://localhost:5173",
+    "http://localhost:3000"
+  ],
+  credentials: true
+}));
 
 app.use(express.json());
 
