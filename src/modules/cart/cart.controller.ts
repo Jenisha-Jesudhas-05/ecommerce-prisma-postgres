@@ -1,35 +1,55 @@
-import type { Request, Response } from "express";
+import type { Response } from "express";
 import prisma from "../../config/prisma.js";
 
 export const addToCart = async (req: any, res: Response) => {
-  const { productId, quantity } = req.body;
+  try {
+    const { productId, quantity } = req.body;
 
-  let cart = await prisma.cart.findUnique({
-    where: { userId: req.user.userId },
-  });
+    const userId = req.user.id; // ✅ FIXED HERE
 
-  if (!cart) {
-    cart = await prisma.cart.create({
-      data: { userId: req.user.userId },
+    let cart = await prisma.cart.findUnique({
+      where: { userId },
     });
+
+    if (!cart) {
+      cart = await prisma.cart.create({
+        data: { userId },
+      });
+    }
+
+    const item = await prisma.cartItem.create({
+      data: {
+        cartId: cart.id,
+        productId,
+        quantity,
+      },
+    });
+
+    res.status(201).json(item);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
   }
-
-  const item = await prisma.cartItem.create({
-    data: {
-      cartId: cart.id,
-      productId,
-      quantity,
-    },
-  });
-
-  res.json(item);
 };
 
 export const getCart = async (req: any, res: Response) => {
-  const cart = await prisma.cart.findUnique({
-    where: { userId: req.user.userId },
-    include: { items: true },
-  });
+  try {
+    const userId = req.user.id; // ✅ FIXED HERE
 
-  res.json(cart);
+    const cart = await prisma.cart.findUnique({
+      where: { userId },
+      include: {
+        items: {
+          include: {
+            product: true, // optional but recommended
+          },
+        },
+      },
+    });
+
+    res.json(cart);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
 };
