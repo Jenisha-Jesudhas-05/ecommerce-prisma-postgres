@@ -7,6 +7,7 @@ import {
   getFeaturedProducts,
   updateProduct,
   deleteProduct,
+  getProductByID,
 } from "./product.controller.js";
 
 import { protect } from "../../middleware/auth.middleware.js";
@@ -16,6 +17,7 @@ const router = Router();
 
 router.get("/featured", getFeaturedProducts);
 router.get("/", getProducts);
+router.get("/:id", getProductByID);
 router.post("/", protect, authorize(["admin", "seller"]), createProduct);
 router.put("/:id", protect, authorize(["admin", "seller"]),updateProduct);
 router.delete("/:id", protect, authorize(["admin", "seller"]), deleteProduct);

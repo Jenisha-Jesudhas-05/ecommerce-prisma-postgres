@@ -33,7 +33,30 @@ export const getProducts = async (_: Request, res: Response) => {
   }
 };
 
+export const getProductByID = async (req: Request, res: Response) => {
+  const id = req.params.id as string; // convert to string
 
+  try {
+    const product = await prisma.product.findUnique({
+      where: { id },
+      include: {
+        seller: {
+          select: { id: true, name: true, email: true },
+        },
+      },
+    });
+
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+
+    res.status(200).json(product);
+  } catch (error: any) {
+    res.status(500).json({
+      message: `Error fetching product: ${error.message}`,
+    });
+  }
+};
 export const updateProduct = async (req: any, res: Response) => {
   const { id } = req.params;
 
